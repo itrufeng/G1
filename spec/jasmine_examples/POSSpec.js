@@ -1,6 +1,6 @@
 describe('POS', function(){
   var POS = require('../../lib/jasmine_examples/POS');
-  var info = [
+  var infoes = [
     {
       barcode: 'ITEM000001',
       name: '可口可乐',
@@ -52,18 +52,23 @@ describe('POS', function(){
         'ITEM000001',
         'ITEM000001',
         'ITEM000001',
-        'ITEM000003-2',
-        'ITEM000005',
-        'ITEM000005',
-        'ITEM000005'
+        'ITEM000004',
+        'ITEM000004',
+        'ITEM000004'
     ];
-    it('should return "ITEM000001 ITEM000005"', function(){
+    it('should return right data', function(){
       var pos = new POS();
-      pos.set([
-        'ITEM000001',
-        'ITEM000005'
-      ]);
-      expect(pos.print(data)).toEqual('ITEM000001 ITEM000001 ITEM000001 ITEM000001 ITEM000001 ITEM000003-2 ITEM000005 ITEM000005 ITEM000005');
+      pos.setInfoes(infoes);
+      expect(pos.print(data)).toEqual('可口可乐 可口可乐 可口可乐 可口可乐 可口可乐 加多宝 加多宝 加多宝');
+    });
+  });
+
+  describe('transCodeToInfo', function(){
+    it('should return coco info', function(){
+      var pos = new POS();
+      pos.setInfoes(infoes);
+      var info = pos.transCodeToInfo('ITEM000001');
+      expect(info.name).toEqual('可口可乐');
     });
   });
 
