@@ -72,4 +72,27 @@ describe('POS', function(){
     });
   });
 
+  describe('print with promotions',function(){
+    var data = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000004',
+        'ITEM000004',
+        'ITEM000004'
+    ];
+    it('should return right data', function(){
+      var pos = new POS();
+      pos.set([
+        'ITEM000001',
+        'ITEM000005'
+      ]);
+      pos.setInfoes(infoes);
+      expect(pos.print(data)).toEqual('可口可乐[X] 可口可乐[X] 可口可乐[X] 可口可乐[X] 可口可乐[X] 加多宝 加多宝 加多宝');
+      console.log(pos.print(data));
+    });
+  });
+
 });
