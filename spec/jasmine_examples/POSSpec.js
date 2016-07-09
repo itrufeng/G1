@@ -56,10 +56,25 @@ describe('POS', function(){
         'ITEM000004',
         'ITEM000004'
     ];
-    it('should return right data', function(){
-      var pos = new POS();
-      pos.setInfoes(infoes);
-      expect(pos.print(data)).toEqual('可口可乐 可口可乐 可口可乐 可口可乐 可口可乐 加多宝 加多宝 加多宝');
+
+    describe('when we not have promotion', ()=>{
+      it('should return right results', ()=>{
+        var pos = new POS();
+        pos.setInfoes(infoes);
+        expect(pos.print(data)).toEqual('可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 加多宝 4.00元 加多宝 4.00元 加多宝 4.00元');
+      });
+    });
+
+    describe('when we have promotion', ()=>{
+      it('should return right data', ()=>{
+        var pos = new POS();
+        pos.set([
+          'ITEM000001',
+          'ITEM000005'
+        ]);
+        pos.setInfoes(infoes);
+        expect(pos.print(data)).toEqual('可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 加多宝 4.00元 加多宝 4.00元 加多宝 4.00元');
+      });
     });
   });
 
@@ -71,28 +86,4 @@ describe('POS', function(){
       expect(info.name).toEqual('可口可乐');
     });
   });
-
-  describe('print with promotions',function(){
-    var data = [
-        'ITEM000001',
-        'ITEM000001',
-        'ITEM000001',
-        'ITEM000001',
-        'ITEM000001',
-        'ITEM000004',
-        'ITEM000004',
-        'ITEM000004'
-    ];
-    it('should return right data', function(){
-      var pos = new POS();
-      pos.set([
-        'ITEM000001',
-        'ITEM000005'
-      ]);
-      pos.setInfoes(infoes);
-      expect(pos.print(data)).toEqual('可口可乐[X] 可口可乐[X] 可口可乐[X] 可口可乐[X] 可口可乐[X] 加多宝 加多宝 加多宝');
-      console.log(pos.print(data));
-    });
-  });
-
 });
