@@ -52,6 +52,7 @@ describe('POS', function(){
         'ITEM000001',
         'ITEM000001',
         'ITEM000001',
+        'ITEM000003-2',
         'ITEM000004',
         'ITEM000004',
         'ITEM000004'
@@ -61,7 +62,7 @@ describe('POS', function(){
       it('should return right results', ()=>{
         var pos = new POS();
         pos.setInfoes(infoes);
-        expect(pos.print(data)).toEqual('可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 可口可乐 3.00元 加多宝 4.00元 加多宝 4.00元 加多宝 4.00元');
+        expect(pos.print(data)).toEqual('可口可乐 3.00元 5瓶 雪碧 3.00元 2瓶 加多宝 4.00元 3罐');
       });
     });
 
@@ -73,8 +74,26 @@ describe('POS', function(){
           'ITEM000005'
         ]);
         pos.setInfoes(infoes);
-        expect(pos.print(data)).toEqual('可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 加多宝 4.00元 加多宝 4.00元 加多宝 4.00元');
+        expect(pos.print(data)).toEqual('可口可乐 3.00元 5瓶 [X] 雪碧 3.00元 2瓶 加多宝 4.00元 3罐');
       });
+    });
+  });
+
+  describe('sameBarcodeCount', function(){
+    var data = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000003-2',
+        'ITEM000004',
+        'ITEM000004',
+        'ITEM000004'
+    ];
+    it('should return coco info', function(){
+      var pos = new POS();
+      expect(pos.sameBarcodeCount(data)).toEqual([{barcode: 'ITEM000001', count: 5}, {barcode: 'ITEM000003', count: 2}, {barcode: 'ITEM000004', count: 3}]);
     });
   });
 
