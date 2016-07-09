@@ -66,7 +66,7 @@ describe('POS', function(){
     });
 
     describe('when we have promotion', ()=>{
-      it('should return right data', function(){
+      it('should return right data', ()=>{
         var pos = new POS();
         pos.set([
           'ITEM000001',
@@ -74,7 +74,6 @@ describe('POS', function(){
         ]);
         pos.setInfoes(infoes);
         expect(pos.print(data)).toEqual('可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 可口可乐 3.00元 [X] 加多宝 4.00元 加多宝 4.00元 加多宝 4.00元');
-        console.log(pos.print(data));
       });
     });
   });
